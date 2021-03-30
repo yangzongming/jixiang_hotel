@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/book/booklist",
+    "pages/bookdetail/bokdetail",
+    "pages/hotel/hotel",
+    "pages/login/login"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "iYoukar",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#575757",
+    "selectedColor": "#FF0099",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/hotel/hotel",
+        "text": "酒店",
+        "iconPath": "images/people_fill.png",
+        "selectedIconPath": "images/people_fill_1.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "菜单",
+        "iconPath": "images/homepage_fill.png",
+        "selectedIconPath": "images/homepage_fill_1.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

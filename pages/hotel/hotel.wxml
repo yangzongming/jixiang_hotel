@@ -1,0 +1,21 @@
+<!-- banner -->
+<view class="root">
+  <image class="iconImage" src="{{imgUrl}}" data-src="{{imgUrl}}" bindtap="previewImage"></image>
+</view>
+
+<view class="inforoot">
+  <text class="name">吉祥大酒店</text>
+</view>
+
+<view class="inforoot">
+  <view class="line"></view>
+  <text class="content">{{address}}</text>
+</view>
+
+<view class="inforoot">
+  <button class="phone" bindtap="phoneclick">电话订桌</button>
+</view>
+
+<view class="inforoot">
+  <button class="phone" bindtap="loginclick">点击登录</button>
+</view>

@@ -1,0 +1,43 @@
+/* pages/hotel/hotel.wxss */
+
+.root{
+  display: flex;
+  align-items: center;
+  padding-left: 4%;
+}
+
+.root .iconImage {
+  margin-top: 30rpx;
+  width: 96%;
+  height: 390rpx;
+  border-radius: 25rpx;
+}
+
+.inforoot{
+  margin-top: 30rpx;
+  width: 90%;
+  margin-left: 5%;
+  position: relative;
+}
+
+.inforoot .name {
+  width: 90%;
+  font-size: 40rpx;
+  margin-left: 40rpx;
+  margin-top: 50rpx;
+  color: rgb(40, 40, 40);
+}
+
+.inforoot .content {
+  font-size: 33rpx;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  margin-top: 30rpx;
+  margin-left: 20px;
+  color: rgb(128, 128, 128);
+}
+
+.inforoot .phone{
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+}

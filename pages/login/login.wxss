@@ -1,0 +1,27 @@
+/* pages/login/login.wxss */
+
+.btn-area {
+  margin-top: 40px;
+ }
+.btn-area { margin-bottom: 60px;}
+.btn-area button{ width: 260px;}
+.btn-area button{ 
+  border-radius: 24px;
+  background: #FFA500;
+  font-style: normal;
+  font-weight: 200;
+}
+.logo-img{
+  margin-top: 150px;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.logo-img-image{
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+}

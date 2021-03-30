@@ -1,0 +1,16 @@
+<!--pages/bookdetail/bokdetail.wxml-->
+<view class="detailContainer">
+  <image class="headImg" src="{{detailObj.coverFile}}"></image>
+</view>
+<view class="avatar_date">
+    <text>{{detailObj.bookName}}</text>
+    <text>发布于</text>
+    <text>{{detailObj.data}}</text>
+    <text class="company">{{detailObj.bookName}}</text>
+    <view class="collection_share_container">
+      <view class="line"></view>
+      <text class="content">{{detailObj.summary}}</text>
+    </view>
+</view>
+
+

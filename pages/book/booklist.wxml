@@ -1,0 +1,35 @@
+<!--pages/book/booklist.wxml-->
+<!-- 礼品列表 -->
+<view class='giftListView'>
+ <block wx:for="{{list}}">
+ <!-- 每个cell -->
+  <view class='item' wx:key="{{item.bookId}}" bindtap='bookAction' data-item= "{{item}}" data-id="{{item.bookId}}" >
+
+  <!-- 产品图片 -->
+   <view class='iconImageView'>
+    <image class='iconImage' src="{{item.coverFile}}" mode = 'aspectFit'></image>
+   </view>
+
+   <!-- 产品名称 -->
+   <view class='productNameView'>
+    <text class='productNameText'>{{item.bookName}}</text>
+   </view>
+
+   <!-- 需要的积分 -->
+   <view class='needScoreView'>
+    <text class='needSocreText'>5星</text>
+   </view>
+   
+   <!-- 具体产品 -->
+   <view class='productDesView'>
+    <text class = 'productDesText'>{{item.summary}}</text>
+   </view>
+  
+  <!-- 剩余数量 -->
+  <view class='numView'>
+   <text class='numText'>书号：{{item.bookId}}</text>
+  </view>
+
+  </view>
+ </block>
+</view>

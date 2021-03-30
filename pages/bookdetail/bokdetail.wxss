@@ -1,0 +1,20 @@
+/* pages/bookdetail/bokdetail.wxss */
+
+
+/* cell 产品图 */
+.headImg {
+  width: 100%;
+  height: 400rpx;
+  top: 0rpx;
+  left: 0rpx;
+  /* background-color:orange; */
+  position: absolute;
+}
+
+.avatar_date {
+  width: 100%;
+  top: 400rpx;
+  left: 0rpx;
+  /* background-color:orange; */
+  position: absolute;
+}

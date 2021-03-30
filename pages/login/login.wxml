@@ -1,0 +1,15 @@
+<!--pages/login/login.wxml-->
+<view class='pages'>
+  <view class='logo-img'>
+    <image class='logo-img-image' src='../../images/logo.png' mode='scaleToFill'></image>
+  </view>
+  <!--
+  <view class="btn-area">
+    <button open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">使用手机号码</button>
+  </view>
+  -->
+  <view class="btn-area">
+    <button open-type="getUserInfo" hover-class='none' bindgetuserinfo="getUserInfoFun">微信授权登录</button>
+    <view>{{message}}</view>
+  </view>
+</view>
