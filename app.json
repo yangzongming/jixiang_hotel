@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/hotel/hotel",
     "pages/index/index",
     "pages/logs/logs",
     "pages/book/booklist",
     "pages/bookdetail/bokdetail",
-    "pages/hotel/hotel",
     "pages/login/login"
   ],
   "window": {
@@ -26,7 +26,7 @@
       },
       {
         "pagePath": "pages/index/index",
-        "text": "菜单",
+        "text": "点菜",
         "iconPath": "images/homepage_fill.png",
         "selectedIconPath": "images/homepage_fill_1.png"
       }

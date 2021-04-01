@@ -111,7 +111,10 @@ Page({
       sessionkey: token.session_key,
       loginType: "auth",
       sucess: function (res) {
-        //console.log(res)
+        console.log('login sucess');
+        console.log(res)
+        wx.setStorageSync('userId', res.data.userId);
+        wx.setStorageSync('nickName',res.data.nickName);
         THIS.setData({
           message: "sucess",
         });

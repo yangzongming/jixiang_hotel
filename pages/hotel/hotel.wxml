@@ -16,6 +16,10 @@
   <button class="phone" bindtap="phoneclick">电话订桌</button>
 </view>
 
-<view class="inforoot">
+<!-- <view class="inforoot">
   <button class="phone" bindtap="loginclick">点击登录</button>
 </view>
+
+<view class="inforoot">
+  <button class="phone" bindtap="diancanClick">点击登录</button>
+</view> -->

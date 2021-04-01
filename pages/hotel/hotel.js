@@ -82,5 +82,11 @@ Page({
     wx.navigateTo({
       url: '/pages/login/login',
     })
+  },
+
+  diancanClick: function () {
+    wx.navigateTo({
+      url: '/pages/index/index',
+    })
   }
 })

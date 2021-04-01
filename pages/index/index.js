@@ -24,7 +24,7 @@ Page({
     HZL_isCat: 0,
 
     // 购物车的商品
-    HZL_my_cat: [],
+    my_cart: [],
 
     // 购物车的数量
     HZL_num:0,
@@ -44,6 +44,12 @@ Page({
       
     ],
 
+    //下单数据
+    orderData: {},
+
+    centerId: 0,
+    deskId: 0,
+    welcome: '吉祥大酒店欢迎您',
   },
 
 
@@ -144,7 +150,7 @@ Page({
   {
 
     // 用户购物车(包含选择的商品)
-    //console.log(this.data.HZL_my_cat)
+    //console.log(this.data.my_cart)
   },
 
 
@@ -183,14 +189,14 @@ Page({
   HZL_zero:function(e)
   {
     for (var i = 0; i < this.data.constants.length; i++) {
-      for (var j = 0; j < this.data.constants[i].category.length; j++) {
-        this.data.constants[i].category[j].num = 0
+      for (var j = 0; j < this.data.constants[i].dishs.length; j++) {
+        this.data.constants[i].dishs[j].num = 0
       }
     }
     this.setData({
       HZL_isCat: 0,
       HZL_num: 0,
-      HZL_my_cat: [],
+      my_cart: [],
       constants: this.data.constants,
     })
   },
@@ -203,10 +209,10 @@ Page({
   {
     var index = e.currentTarget.dataset.index;
     var parentIndex = e.currentTarget.dataset.parentindex;
-    var HZL_my_cat = this.HZL_my_jia(parentIndex, index)
+    var my_cart = this.HZL_my_jia(parentIndex, index)
     this.setData({
       HZL_num: this.data.HZL_num,
-      HZL_my_cat: HZL_my_cat,
+      my_cart: my_cart,
       constants: this.data.constants,
     })
   },
@@ -219,7 +225,7 @@ Page({
   {
     var index = e.currentTarget.dataset.index;
     var parentIndex = e.currentTarget.dataset.parentindex;
-    var HZL_my_cat = this.HZL_my_jian(parentIndex, index)
+    var my_cart = this.HZL_my_jian(parentIndex, index)
 
     if (this.data.HZL_num == 0) {
       this.data.HZL_isCat = 0;
@@ -229,7 +235,7 @@ Page({
 
     this.setData({
       HZL_num: this.data.HZL_num,
-      HZL_my_cat: HZL_my_cat,
+      my_cart: my_cart,
       constants: this.data.constants,
     })
   },
@@ -242,10 +248,10 @@ Page({
   {
     var index = e.currentTarget.dataset.index;
     var parentIndex = e.currentTarget.dataset.parentindex;
-    var HZL_my_cat = this.HZL_my_jia(parentIndex, index)
+    var my_cart = this.HZL_my_jia(parentIndex, index)
     this.setData({
       HZL_num: this.data.HZL_num,
-      HZL_my_cat: HZL_my_cat,
+      my_cart: my_cart,
       constants: this.data.constants,
     })
   },
@@ -258,7 +264,7 @@ Page({
   {
     var index = e.currentTarget.dataset.index;
     var parentIndex = e.currentTarget.dataset.parentindex;
-    var HZL_my_cat = this.HZL_my_jian(parentIndex, index)
+    var my_cart = this.HZL_my_jian(parentIndex, index)
 
     if (this.data.HZL_num == 0) {
       this.data.HZL_isCat = 0;
@@ -268,7 +274,7 @@ Page({
 
     this.setData({
       HZL_num: this.data.HZL_num,
-      HZL_my_cat: HZL_my_cat,
+      my_cart: my_cart,
       constants: this.data.constants,
       HZL_isCat: this.data.HZL_isCat
     })
@@ -283,23 +289,31 @@ Page({
     this.data.HZL_num++;
     var index = index;
     var parentIndex = parentIndex;
-    var id = this.data.constants[parentIndex].category[index].category_id;
-    var name = this.data.constants[parentIndex].category[index].category_name;
-    var num = ++this.data.constants[parentIndex].category[index].num ;
+    console.log(this.data.constants)
+    var id = this.data.constants[parentIndex].dishs[index].dishId;
+    var name = this.data.constants[parentIndex].dishs[index].name;
+    var num = ++this.data.constants[parentIndex].dishs[index].num ;
     //弄一个元素判断会不会是重复的
     var mark = 'a' + index + 'b' + parentIndex + 'c' + '0' + 'd' + '0'
-    var obj = { num: num, name: name,mark: mark, index: index, parentIndex: parentIndex };
-    var HZL_my_cat = this.data.HZL_my_cat;
-    HZL_my_cat.push(obj)
+    var obj = { 
+      dishId: id,
+      num: num, 
+      name: name, 
+      mark: mark, 
+      index: index, 
+      parentIndex: parentIndex 
+    };
+    var my_cart = this.data.my_cart;
+    my_cart.push(obj)
 
     var arr = [];
     //去掉重复的
-    for (var i = 0; i < HZL_my_cat.length; i++) {
-      if (obj.mark == HZL_my_cat[i].mark) {
-        HZL_my_cat.splice(i, 1, obj)
+    for (var i = 0; i < my_cart.length; i++) {
+      if (obj.mark == my_cart[i].mark) {
+        my_cart.splice(i, 1, obj)
       }
-      if (arr.indexOf(HZL_my_cat[i]) == -1) {
-        arr.push(HZL_my_cat[i]);
+      if (arr.indexOf(my_cart[i]) == -1) {
+        arr.push(my_cart[i]);
       }
     }
     return arr
@@ -314,30 +328,37 @@ Page({
     this.data.HZL_num--;
     var index = index;
     var parentIndex = parentIndex;
-    var id = this.data.constants[parentIndex].category[index].category_id;
-    var name = this.data.constants[parentIndex].category[index].category_name;
-    var num = --this.data.constants[parentIndex].category[index].num;
+    var id = this.data.constants[parentIndex].dishs[index].dishId;
+    var name = this.data.constants[parentIndex].dishs[index].name;
+    var num = --this.data.constants[parentIndex].dishs[index].num;
     //弄一个元素判断会不会是重复的
     var mark = 'a' + index + 'b' + parentIndex + 'c' + '0' + 'd' + '0'
-    var obj = { num: num, name: name, mark: mark, index: index, parentIndex: parentIndex };
-    var HZL_my_cat = this.data.HZL_my_cat;
-    HZL_my_cat.push(obj)
+    var obj = { 
+      dishId: id,
+      num: num, 
+      name: name, 
+      mark: mark, 
+      index: index, 
+      parentIndex: parentIndex 
+    };
+    var my_cart = this.data.my_cart;
+    my_cart.push(obj)
 
     var arr = [];
     //去掉重复的
-    for (var i = 0; i < HZL_my_cat.length; i++) {
-      if (obj.mark == HZL_my_cat[i].mark) {
-        HZL_my_cat.splice(i, 1, obj)
+    for (var i = 0; i < my_cart.length; i++) {
+      if (obj.mark == my_cart[i].mark) {
+        my_cart.splice(i, 1, obj)
       }
     }
     
 
     var arr1 = [];
     //当数量大于1的时候加
-    for (var i = 0; i < HZL_my_cat.length; i++) {
-      if (arr1.indexOf(HZL_my_cat[i]) == -1) {
-        arr1.push(HZL_my_cat[i]);
-        if (HZL_my_cat[i].num > 0) {
+    for (var i = 0; i < my_cart.length; i++) {
+      if (arr1.indexOf(my_cart[i]) == -1) {
+        arr1.push(my_cart[i]);
+        if (my_cart[i].num > 0) {
           arr.push(arr1[i])
         }
       }
@@ -369,7 +390,7 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         var HZL_height = res.windowHeight
-        var HZL_height1 = res.windowHeight
+        var HZL_height1 = res.windowHeight + 50
         that.setData({
           HZL_height: HZL_height,
           HZL_height1: HZL_height1
@@ -384,10 +405,14 @@ Page({
     console.log('pass')
     var centerId = options.centerid;
     var deskId = options.deskId;
-    if(centerId != null && deskId != null){
-      wx.showToast({
-        title: 'centerId='+centerId+'deskId='+deskId,
+    if(centerId != null && deskId != null && centerId != 0 && deskId != 0){
+      that.setData({
+        centerId: centerId,
+        deskId: deskId,
       })
+      this.freshDeskInfo(deskId);
+    }else{
+      this.freshDeskInfo(0);
     }
   },
     /**
@@ -395,7 +420,7 @@ Page({
    */
   onShow: function () 
   {
-    
+    this.freshDeskInfo(this.data.deskId)
   },
 
    /**
@@ -420,8 +445,8 @@ Page({
         
       },
       success: function (res1) {
-        //console.log("首页数据");
-        //console.log(res1.data.categorys);
+        console.log("首页数据");
+        console.log(res1.data.categorys);
         wx.stopPullDownRefresh({
           success: (res) => {},
         });
@@ -431,12 +456,14 @@ Page({
           var i = 1;
           for(var t=0;t<res1.data.categorys.length;t++ ){
             var category = res1.data.categorys[t];
-            category.index = 'id'+i
+            category.index = 'id'+i;
             i+=1;
+            var dishs = category.dishs;
+            for(var j=0;j<dishs.length;j++){
+              var dish = dishs[j];
+              dish.num = 0;
+            }
           }
-          //console.log('fuck')
-          //console.log(res1.data.categorys)
-
           that.setData({
             constants: res1.data.categorys,
             HZL_currentLeftSelect: res1.data.categorys[0].index,
@@ -445,6 +472,7 @@ Page({
             that.setData({
               HZL_eachRightItemToTop: that.HZL_getEachRightItemToTop()
             })
+            that.HZL_zero()
           },"100");
         }
       },
@@ -457,5 +485,174 @@ Page({
       method: 'GET'
     });
   },
+
+  createOrder: function (tmpData){
+    var that = this;
+    networkUtil.NetRequest({
+      url: "/api2/dish/order/create",
+      data: tmpData,
+      success: function(res1){
+        console.log(res1)
+        wx.showToast({
+          title: '下单成功',
+        })
+        that.HZL_zero()
+      },
+      fail: function(res2){
+        wx.showToast({
+          title: '下单失败',
+        })
+      },
+      method: 'POST'
+    });
+  },
+
+  freshDeskInfo: function (deskid){
+    var that = this;
+    var nickName = wx.getStorageSync('nickName')
+    if(nickName == null || nickName == ''){
+      nickName = '顾客'
+    }
+    if(null != deskid && deskid != 0){
+      networkUtil.NetRequest({
+        url: "/api2/dish/desk/info",
+        data:{
+          deskId: deskid,
+        },
+        success: function(res1){
+          console.log(res1)
+          that.setData({
+            welcome: nickName + '，欢迎您。'+res1.data.roomName +' 餐桌：' +res1.data.deskNum
+          })
+        },
+        fail: function(res2){
+  
+        },
+        method: 'GET'
+      });
+    }else{
+      var nickName = wx.getStorageSync('nickName')
+      if(nickName != null){
+        this.setData({
+          welcome: nickName + '，欢迎您。'
+        })
+      }else{
+        this.setData({
+          welcome: '顾客' + '，欢迎您。'
+        })
+      }
+    }
+  },
+
+  order_button_click: function (){
+
+    var that = this;
+
+    var userId = wx.getStorageSync('userId')
+    var deskId = that.data.deskId;
+    var centerId = that.data.centerId;
+    //console.log('userId='+userId)
+
+    if(that.data.my_cart.length == 0){
+      wx.showToast({
+        title: '你还没有点菜哦～',
+      })
+      return;
+    }
+
+    if(userId == null || userId == '' || userId == 0){
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+      return;
+    }
+
+    if(that.data.centerId == 0 || that.data.centerId == '' || that.data.deskId == 0 || that.data.deskId == ''){
+      wx.showModal({
+        title: '点餐提示',
+        content: '点餐需要扫描餐桌上的二维码，点击确定开始扫描~',
+        success: function(res){
+          if(res.confirm){
+            wx.scanCode({
+              onlyFromCamera: true,
+              success(res){
+                var scanCodeMsg = res.path; //获取二维码的路径信息
+                console.log(scanCodeMsg) //输出二维码信息
+                // pages/index/index?deskId=1002&centerid=1008
+
+                centerId = that.getQueryVariable(scanCodeMsg, 'centerid')
+                deskId = that.getQueryVariable(scanCodeMsg, 'deskId')
+                this.freshDeskInfo(deskId);
+                that.setData({
+                  centerId: centerId,
+                  deskId: deskId,
+                })
+                wx.showToast({
+                  title: '扫码'+centerId+'_'+deskId,
+                })
+              },
+              fail(res){
+                console.log(res)
+              }
+            })
+          }else{
+
+          }
+        }
+      })
+      return;
+    }
+    wx.showModal({
+      title: '提示',
+      content: '确定提交订单？',
+      success: function(res){
+        if(res.confirm){
+          console.log('confirm')
+          that.placeOrder(userId, deskId, centerId);
+        }
+      },
+
+    })
+  },
+
+  placeOrder: function(userId, deskId, centerId){
+    //console.log(this.data.my_cart);
+    var that = this;
+    var tmpList = [];
+    for(var i=0;i<this.data.my_cart.length;++i){
+      var dish = this.data.my_cart[i]
+      var dic = {
+        dishId: dish.dishId,
+        count: dish.num,
+      }
+      tmpList.push(dic)
+    }
+    //console.log('fuck')
+    //console.log(tmpList)
+    var tmpData = {
+      data: {
+        userId: userId,
+        deskId: deskId,
+        centerId: centerId,
+        dishOrderList: tmpList
+      }
+    };
+    var json = JSON.stringify(tmpData);
+    //var map = {"data":json};
+    console.log(json)
+    that.createOrder(json)
+  },
+
+  getQueryVariable: function(url, variable)
+  {
+    var query = url.replace("pages/index/index?","");//window.location.search.substring(1);
+    var vars = query.split("&");
+    console.log(vars)
+    for (var i=0;i<vars.length;i++) {
+      var pair = vars[i].split("=");
+      if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+  }
 
 })

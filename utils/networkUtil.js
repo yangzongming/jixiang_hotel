@@ -17,15 +17,28 @@ function NetRequest({ url, data, success, fail, complete, method = 'GET' }) {
   var accessToken = wx.getStorageSync('accessToken');
   var i_centerid = "0";
     
-  if (session_id != "" && session_id != null) {
-    var header = { 'content-type': 'application/x-www-form-urlencoded', 
-    'Cookie': 'JSESSIONID=' + session_id + 
-    ',accessToken=' + accessToken + 
-    ',versionNumber=' + getApp().globalData.versionNumber + 
-    ',versionCode=' + getApp().globalData.versionCode + 
-    ',i_centerid=' + i_centerid };
-  } else {
-    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'versionNumber=' + getApp().globalData.versionNumber + ',versionCode=' + getApp().globalData.versionCode + ',i_centerid=' + i_centerid }
+  if(method == 'GET'){
+    if (session_id != "" && session_id != null) {
+      var header = { 'content-type': 'application/x-www-form-urlencoded', 
+      'Cookie': 'JSESSIONID=' + session_id + 
+      ',accessToken=' + accessToken + 
+      ',versionNumber=' + getApp().globalData.versionNumber + 
+      ',versionCode=' + getApp().globalData.versionCode + 
+      ',i_centerid=' + i_centerid };
+    } else {
+      var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'versionNumber=' + getApp().globalData.versionNumber + ',versionCode=' + getApp().globalData.versionCode + ',i_centerid=' + i_centerid }
+    }
+  }else{
+    if (session_id != "" && session_id != null) {
+      var header = { 'content-type': 'application/json; charset=utf-8', 
+      'Cookie': 'JSESSIONID=' + session_id + 
+      ',accessToken=' + accessToken + 
+      ',versionNumber=' + getApp().globalData.versionNumber + 
+      ',versionCode=' + getApp().globalData.versionCode + 
+      ',i_centerid=' + i_centerid };
+    } else {
+      var header = { 'content-type': 'application/json; charset=utf-8', 'Cookie': 'versionNumber=' + getApp().globalData.versionNumber + ',versionCode=' + getApp().globalData.versionCode + ',i_centerid=' + i_centerid }
+    }
   }
   
   url = Server + url;

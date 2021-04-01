@@ -3,6 +3,9 @@
   <image class="bannerImage" src="{{imgUrl}}" data-src="{{imgUrl}}" bindtap="previewImage"></image>
 </view>
 
+<view class="welcome">
+    <label class="welcomelabel">{{welcome}}</label>
+</view>
 
 <view style="height:{{ HZL_height1 }}px">
     <view 
@@ -77,10 +80,55 @@
                         <text wx:if="{{item.recommendText}}" class="recommend">{{item.recommendText}}</text>
                     </view>
                     <text class='summary'>{{item.summary}}</text>
-                    <text wx:if="{{item.price>0}}" class='price'>¥{{item.price}}</text>
-                    <text wx:if="{{item.price<=0}}" class='price'>时价</text>
+                    <view class="operation_root">
+                        <text wx:if="{{item.price>0}}" class='price'>¥{{item.price}}</text>
+                        <text wx:if="{{item.price<=0}}" class='price'>时价</text>
+                        <view class="jiajian_root">
+                            <!-- 减号(份数) -->
+                            <image 
+                            wx:if="{{item.num > 0}}"
+                            src="../../images/jian.png" 
+                            bindtap="HZL_jian" 
+                            class="dish_jian" 
+                            data-parentIndex="{{parentIndex}}"
+                            data-index="{{index}}"></image>
+                            <image
+                                wx:if="{{item.num == 0}}"
+                                class="dish_jian">
+                            </image>
+
+                            <!-- 用户该商品数量 -->
+                            <view wx:if="{{item.num == 0}}"
+                            class="dish_num"></view>
+                            <view wx:if="{{item.num > 0}}"
+                            class="dish_num">{{item.num}}</view>
+
+                            <!-- 加号(份数)  -->
+                            <image 
+                            src="../../images/jia.png" 
+                            bindtap="HZL_jia" 
+                            class="dish_jia" 
+                            data-parentIndex="{{parentIndex}}"
+                            data-index="{{index}}"></image>
+                        </view>
+                    </view>
                 </view>
                 <!-- <view class="HZL_son">{{item.name}}</view> -->
+                <view class="HZL_son1">
+                    <view class="HZL_Grandson"></view>
+                        <view class="HZL_Grandson1">
+
+                            <view 
+                            wx:if="{{item.num == 0}}"
+                            class="HZL_num"
+                            ></view>
+                            
+                            <view wx:if="{{item.num == 0}}"
+                            class="HZL_num"
+                            ></view>
+
+                        </view>
+                    </view>
                 </view>
             </view>
         </scroll-view>
@@ -116,8 +164,8 @@ scroll-y="true"
 
     <view 
     class="HZL_cat_scrollView"
-    wx:for="{{HZL_my_cat}}" 
-    wx:key="HZL_my_cat">
+    wx:for="{{my_cart}}" 
+    wx:key="my_cart">
     
     <view class="HZL_cat_scrollView_text">
     {{item.name}}
@@ -132,21 +180,43 @@ scroll-y="true"
             <view wx:if="{{item.num == 0}}"
             class="HZL_num"></view>
             
-            <view wx:if="{{item.num > 0}}"
+            <image wx:if="{{item.num > 0}}"
+            src="../../images/jian.png" 
             class="HZL_jian" 
             bindtap="HZL_jian1"
             data-parentIndex="{{item.parentIndex}}"
-            data-index="{{item.index}}">-</view>
+            data-index="{{item.index}}"></image>
 
             <view wx:if="{{item.num > 0}}"
             class="HZL_num">{{item.num}}</view>
 
-            <view class="HZL_jia"
+            <image class="HZL_jia"
+            src="../../images/jia.png" 
             bindtap="HZL_jia1"
             data-parentIndex="{{item.parentIndex}}"
-            data-index="{{item.index}}">+</view>
+            data-index="{{item.index}}"></image>
             </view>
 
         </view>
     </scroll-view>
+</view>
+
+
+<!-- 底部固定购物车 -->
+<view class="HZL_cat">
+    <view 
+    class="HZL_cat_img_view"
+    bindtap="HZL_isCat">
+
+    <image src="../../images/shop-cat-on1.png"
+    class="HZL_cat_img"></image>
+
+    <view 
+    class="HZL_cat_num"
+    wx:if="{{HZL_num > 0}}">
+    {{HZL_num}}
+    </view>
+
+    </view>
+    <view class="HZL_cat_text" bindtap="order_button_click">选好了</view>
 </view>
