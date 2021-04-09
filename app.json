@@ -26,7 +26,7 @@
       },
       {
         "pagePath": "pages/index/index",
-        "text": "点菜",
+        "text": "菜单",
         "iconPath": "images/homepage_fill.png",
         "selectedIconPath": "images/homepage_fill_1.png"
       }

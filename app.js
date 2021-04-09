@@ -70,8 +70,8 @@ App({
     customer: null,
     wechatUserInfo: wx.getStorageSync('wechatUserInfo'),
     userId: wx.getStorageSync('userId'),
-    versionNumber: '1.0.3',
-    versionCode: 103,
+    versionNumber: '1.0.5',
+    versionCode: 105,
     BASE_URL: "https://iyoukar.com", //正式版
   }
 })

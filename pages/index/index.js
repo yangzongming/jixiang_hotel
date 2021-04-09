@@ -50,6 +50,8 @@ Page({
     centerId: 0,
     deskId: 0,
     welcome: '吉祥大酒店欢迎您',
+
+    is_review: true,
   },
 
 
@@ -410,9 +412,9 @@ Page({
         centerId: centerId,
         deskId: deskId,
       })
-      this.freshDeskInfo(deskId);
+      that.freshDeskInfo(deskId);
     }else{
-      this.freshDeskInfo(0);
+      that.freshDeskInfo(0);
     }
   },
     /**
@@ -420,7 +422,8 @@ Page({
    */
   onShow: function () 
   {
-    this.freshDeskInfo(this.data.deskId)
+    this.freshDeskInfo(this.data.deskId);
+    this.getOnlineConfig();
   },
 
    /**
@@ -507,6 +510,39 @@ Page({
     });
   },
 
+  getOnlineConfig: function () {
+    var that = this;
+    networkUtil.NetRequest({
+      url: "/api2/app/onlineConfig/info?appSite=wechat_dish",
+      data:{
+
+      },
+      success: function(res1){
+        console.log(res1)
+        var content = res1.data.configs[0].content;
+        if(null == content || content == ''){
+          that.setData({
+            is_review: true,
+          })
+        }else{
+          if(content == '1'){
+            that.setData({
+              is_review: true,
+            })
+          }else{
+            that.setData({
+              is_review: false,
+            })
+          }
+        }
+      },
+      fail: function(res2){
+
+      },
+      method: 'GET'
+    });
+  },
+
   freshDeskInfo: function (deskid){
     var that = this;
     var nickName = wx.getStorageSync('nickName')
@@ -582,14 +618,12 @@ Page({
 
                 centerId = that.getQueryVariable(scanCodeMsg, 'centerid')
                 deskId = that.getQueryVariable(scanCodeMsg, 'deskId')
-                this.freshDeskInfo(deskId);
+                that.freshDeskInfo(deskId);
                 that.setData({
                   centerId: centerId,
                   deskId: deskId,
                 })
-                wx.showToast({
-                  title: '扫码'+centerId+'_'+deskId,
-                })
+                that.order_button_click()
               },
               fail(res){
                 console.log(res)
